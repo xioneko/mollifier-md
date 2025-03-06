@@ -95,7 +95,7 @@ export const editorViewport = style([
   scrollbarAutoHide,
   {
     height: "100%",
-    overflow: "auto scroll !important",
+    overflow: "auto scroll",
     contentVisibility: "auto",
   },
 ])

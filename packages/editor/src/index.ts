@@ -1,6 +1,7 @@
 import CodeBlock from "#plugins/CodeBlock"
 import ContextMenu from "#plugins/ContextMenu"
 import DraggableBlock from "#plugins/DraggableBlock"
+import Equation from "#plugins/Equation"
 import FloatingToolbar from "#plugins/FloatingToolbar"
 import History from "#plugins/History"
 import ImageBlock from "#plugins/ImageBlock"
@@ -28,4 +29,5 @@ export const defaultPlugins = [
   DraggableBlock,
   History,
   InputRule,
+  Equation,
 ]

@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { AppContext } from "../App.vue"
 import { currentDateTime, exportFile, importTextFile } from "../utils"
+import { useComposerContext } from "@mollifier-md/editor"
 import { $getRoot, $createParagraphNode, $createRangeSelection, $setSelection } from "lexical"
-import { useComposerContext } from "mollifier-md-editor"
 import { inject } from "vue"
 
 const { editor, converter } = useComposerContext()

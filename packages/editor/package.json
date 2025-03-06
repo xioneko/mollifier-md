@@ -38,7 +38,9 @@
     "codemirror": "^6.0.1",
     "lexical": "catalog:",
     "markdown-it": "^14.1.0",
-    "vue": "catalog:"
+    "vue": "catalog:",
+    "katex": "^0.16.21",
+    "@mdit/plugin-tex": "^0.16.0"
   },
   "devDependencies": {
     "@types/markdown-it": "^14.1.2"

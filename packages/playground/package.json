@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@vanilla-extract/css": "catalog:",
-    "mollifier-md-editor": "workspace:*",
+    "@mollifier-md/editor": "workspace:*",
     "@mollifier-md/ui": "workspace:*",
     "lexical": "catalog:",
     "vue": "catalog:"

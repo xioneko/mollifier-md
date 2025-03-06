@@ -1,5 +1,5 @@
 import * as css from "./editorTheme.css"
-import type { EditorThemeClasses } from "lexical"
+import type { EditorThemeClasses } from "@mollifier-md/editor/types"
 
 export const editorTheme: EditorThemeClasses = {
   paragraph: "Editor__p " + css.p,
@@ -44,4 +44,8 @@ export const editorTheme: EditorThemeClasses = {
   tableResizer: "Editor__tableResizer " + css.tableResizer,
   tableCell: "Editor__tableCell " + css.tableCell,
   tableScrollableWrapper: "Editor__tableScrollableWrapper " + css.tableScrollableWrapper,
+  equation: {
+    inline: "Editor__mathInline",
+    block: "Editor__mathBlock",
+  },
 }

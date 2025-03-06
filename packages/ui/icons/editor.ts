@@ -28,6 +28,8 @@ import MaterialSymbolsDragIndicator from "~icons/material-symbols/drag-indicator
 import MaterialSymbolsFormatParagraphRounded from "~icons/material-symbols/format-paragraph-rounded"
 import MaterialSymbolsFormatQuoteOutlineRounded from "~icons/material-symbols/format-quote-outline-rounded"
 import MaterialSymbolsHorizontalRuleRounded from "~icons/material-symbols/horizontal-rule-rounded"
+import TablerMath from "~icons/tabler/math"
+import TablerSum from "~icons/tabler/sum"
 
 export const Paragraph: SVGComponent = MaterialSymbolsFormatParagraphRounded
 
@@ -77,3 +79,7 @@ export const Link: SVGComponent = LucideLink
 export const Unlink: SVGComponent = LucideUnlink
 
 export const DragIndicator: SVGComponent = MaterialSymbolsDragIndicator
+
+export const Sum: SVGComponent = TablerSum
+
+export const Math: SVGComponent = TablerMath

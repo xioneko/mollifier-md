@@ -6,7 +6,6 @@ export const AppContext = Symbol("AppContext") as InjectionKey<AppContextValue>
 </script>
 
 <script setup lang="ts">
-import introduction from "./assets/introduction.json?raw"
 import EditorActions from "./components/EditorActions.vue"
 import GitHubCorner from "./components/GitHubCorner.vue"
 import ThemeToggle from "./components/ThemeToggle.vue"
@@ -19,7 +18,7 @@ import {
   defaultPlugins,
   EditorViewport,
   EditorTreeView,
-} from "mollifier-md-editor"
+} from "@mollifier-md/editor"
 import * as Menu from "@mollifier-md/ui/components/Menu"
 import { useTooltipSingleton } from "@mollifier-md/ui/components/Tooltip"
 import { Import, Export, Bug, Trash, Share } from "@mollifier-md/ui/icons"

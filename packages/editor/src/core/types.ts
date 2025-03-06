@@ -58,4 +58,8 @@ export type EditorThemeClasses = PartialDeep<{
     code: string
     underlineStrikethrough: string
   }
+  equation: {
+    inline: string
+    block: string
+  }
 }>
