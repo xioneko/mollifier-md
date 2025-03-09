@@ -7,7 +7,6 @@ export const AppContext = Symbol("AppContext") as InjectionKey<AppContextValue>
 
 <script setup lang="ts">
 import EditorActions from "./components/EditorActions.vue"
-import GitHubCorner from "./components/GitHubCorner.vue"
 import ThemeToggle from "./components/ThemeToggle.vue"
 import { editorTheme } from "./editorTheme"
 import * as css from "./styles.css"
@@ -83,9 +82,10 @@ provide(AppContext, { showToast })
 </script>
 
 <template>
-  <GitHubCorner url="https://github.com/xioneko/mollifier-md" />
   <main>
+    <!-- （可选）滚动容器元素 -->
     <EditorViewport :class="css.editorViewport">
+      <!-- 提供 EditorComposerContext -->
       <EditorComposer
         ref="composerKey"
         namespace="MollifierMD"
@@ -93,7 +93,9 @@ provide(AppContext, { showToast })
         :plugins="defaultPlugins"
         @error="showErrorOverlay($event)"
       >
+        <!-- 编辑器根元素 -->
         <ContentEditable :class="css.contentEditable" spellcheck="false" />
+        <!-- （可选）为了接收 ComposerContext，并暴露一些编辑器操作 -->
         <EditorActions ref="actionsKey" />
       </EditorComposer>
     </EditorViewport>
