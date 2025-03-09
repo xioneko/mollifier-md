@@ -7,7 +7,6 @@ export const AppContext = Symbol("AppContext") as InjectionKey<AppContextValue>
 
 <script setup lang="ts">
 import EditorActions from "./components/EditorActions.vue"
-import GitHubCorner from "./components/GitHubCorner.vue"
 import ThemeToggle from "./components/ThemeToggle.vue"
 import { editorTheme } from "./editorTheme"
 import * as css from "./styles.css"
@@ -83,7 +82,6 @@ provide(AppContext, { showToast })
 </script>
 
 <template>
-  <GitHubCorner url="https://github.com/xioneko/mollifier-md" />
   <main>
     <!-- （可选）滚动容器元素 -->
     <EditorViewport :class="css.editorViewport">

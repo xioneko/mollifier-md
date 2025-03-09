@@ -105,10 +105,9 @@ export const contentEditable = style({
   position: "relative",
   outline: "none",
   minWidth: "420px",
-  maxWidth: "740px",
   minHeight: "360px",
   marginInline: "auto",
-  padding: "108px 16%",
+  padding: "108px 72px",
   fontSize: vars.text.base,
 })
 
