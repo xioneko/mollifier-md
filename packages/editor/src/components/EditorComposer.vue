@@ -7,15 +7,27 @@ export interface EditorComposerContextValue {
 }
 
 export interface EditorComposerProps {
+  /**
+   * 主题 Classes 配置，会成为 EditorConfig 的一部分，并传递给节点的 createDOM 方法
+   */
   theme?: EditorThemeClasses
   editable?: boolean
   initialEditorState?: string | EditorState
+  /**
+   * 命名空间，用于区分不同的编辑器实例
+   */
   namespace?: string
+  /**
+   * 插件列表
+   */
   plugins?: EditorPlugin[]
   userConfig?: Record<string, unknown>
 }
 
 interface EditorComposerEmits {
+  /**
+   * 编辑器发生错误时触发
+   */
   error: [error: Error]
 }
 
