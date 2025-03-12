@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useComposerContext } from "#components"
 import { usePluginsHostContext } from "#components/PluginsHost.vue"
-import SlashMenu, { SlashMenuPluginApi } from "#plugins/SlashMenu"
+import Autocomplete, { AutocompletePluginApi } from "#plugins/Autocomplete"
 import { getNodeKeyFromDOMNode, registerNodeElementMutationListener } from "#shared/node.ts"
 import { $getBlockElementNodeAtPoint } from "#shared/selection.ts"
 import { $createTableSelectionFrom } from "./TableSelection"
@@ -142,7 +142,7 @@ const handleResizerPointerDown = (event: PointerEvent) => {
 onUnmounted(
   mergeRegister(
     registerTable(editor),
-    registerPluginMountedHook<SlashMenuPluginApi>(SlashMenu.id, plugin => {
+    registerPluginMountedHook<AutocompletePluginApi>(Autocomplete.id, plugin => {
       const cleanup = plugin.registerItems({
         id: "table",
         title: "Table",
@@ -159,7 +159,7 @@ onUnmounted(
           })
         },
       })
-      cleanupFns.set(SlashMenu.id, cleanup)
+      cleanupFns.set(Autocomplete.id, cleanup)
     }),
     registerNodeElementMutationListener(editor, TableNode, mutation => {
       if (mutation.type === "created") {

@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { useComposerContext, usePluginsHostContext } from "#components"
+import Autocomplete, { AutocompletePluginApi } from "#plugins/Autocomplete"
 import FloatingToolbar, { FloatingToolbarPluginApi } from "#plugins/FloatingToolbar"
 import InputRule, { InputRulePluginApi } from "#plugins/InputRule"
-import SlashMenu, { SlashMenuPluginApi } from "#plugins/SlashMenu"
 import { __assert__ } from "#shared/dev.ts"
 import { inputRules } from "./inputRules"
 import { $createEquationBlockNode, $createInlineEquationNode } from "./nodes"
@@ -17,7 +17,7 @@ const cleanupFns: (() => void)[] = []
 
 onUnmounted(
   mergeRegister(
-    registerPluginMountedHook<SlashMenuPluginApi>(SlashMenu.id, plugin => {
+    registerPluginMountedHook<AutocompletePluginApi>(Autocomplete.id, plugin => {
       const unregister = plugin.registerItems(
         {
           id: "inline-equation",

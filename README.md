@@ -15,5 +15,5 @@
 | Link            | 链接节点                                   |
 | List            | 列表节点                                   |
 | RichText        | 标题/引用块/分割线节点, 基本的文本编辑操作 |
-| SlashMenu       | 斜杠命令菜单                               |
+| Autocomplete    | 自动补全列表                               |
 | Table           | 表格节点                                   |

@@ -75,3 +75,25 @@ export const prefixSubsequenceMatcher: AutoCompleteMatcher<string> = (
   }
   return false
 }
+
+export const wordAnchoredSubsequenceMatcher: AutoCompleteMatcher<string> = (
+  value: string,
+  query: string,
+) => {
+  if (query === "") return true
+  if (value.length < query.length) return false
+  const input = query.toLowerCase()
+  const itemValue = value.toLowerCase()
+  let i = 0,
+    j = 0
+  while (j < itemValue.length) {
+    if (input[i] === itemValue[j] && (i > 0 || j === 0 || itemValue[j - 1] === " ")) {
+      i += 1
+      if (i === input.length) {
+        if (i === input.length) return 1 / itemValue.length
+      }
+    }
+    j += 1
+  }
+  return false
+}

@@ -1,19 +1,24 @@
 <script lang="ts">
-export interface SlashMenuPluginApi {
-  registerItems: (...items: SlashMenuItem[]) => () => void
+export interface AutocompletePluginApi {
+  registerItems: (...items: AutocompleteItem[]) => () => void
+}
+
+function getTextAfterLastNonAlnum(str: string) {
+  let match = str.match(/[^a-zA-Z0-9]([a-zA-Z0-9]*)$/)
+  return match ? match[1] : str
 }
 </script>
 
 <script setup lang="ts">
 import { useComposerContext, getViewportElement } from "#components"
 import { $isElementBlock } from "#core/nodes"
-import * as css from "./SlashMenu.css"
-import { SlashMenuItem, SlashMenuIcon } from "./SlashMenuItem"
+import * as css from "./Autocomplete.css"
+import { AutocompleteItem, AutocompleteIcon } from "./AutocompleteItem"
 import VirtualInput from "./components/VirtualInput.vue"
 import { vDismissable, type vDismissableValue, vScrollLock } from "@mollifier-md/ui/components"
 import * as AutoComplete from "@mollifier-md/ui/components/AutoComplete"
 import * as Popper from "@mollifier-md/ui/components/Popper"
-import { $getSelection, $isRangeSelection, Point } from "lexical"
+import { $getSelection, $isRangeSelection } from "lexical"
 import { onMounted, onUnmounted, Ref, ref, shallowRef } from "vue"
 
 const { editor } = useComposerContext()
@@ -22,8 +27,7 @@ const openMenu = ref(false)
 const query = ref("")
 const _inputValue = ref("")
 
-const items = shallowRef<SlashMenuItem[]>([])
-let slashAnchor: Point | null = null
+const items = shallowRef<AutocompleteItem[]>([])
 let viewportElement: HTMLElement
 let menuAnchor: Ref<Popper.Measurable | null> = ref(null)
 
@@ -32,47 +36,54 @@ onMounted(() => {
   viewportElement = getViewportElement(rootElement)
 })
 
+let prevTextContentLength = 0
 onUnmounted(
-  editor.registerTextContentListener(() => {
+  editor.registerTextContentListener(textContent => {
     editor.read(() => {
       if (editor.isComposing()) return
+
       const selection = $getSelection()
       if (
-        $isRangeSelection(selection) &&
-        selection.isCollapsed() &&
-        selection.anchor.type === "text"
+        !$isRangeSelection(selection) ||
+        !selection.isCollapsed() ||
+        selection.anchor.type !== "text"
       ) {
-        const node = selection.anchor.getNode()
-        if (node.isSimpleText()) {
-          if (!openMenu.value) {
-            const parent = node.getParent()
-            if ($isElementBlock(parent)) {
-              const text = node.__text
-              const len = text.length
-              if (len > 0 && text[len - 1] === "/" && (len === 1 || /\s/.test(text[len - 2]))) {
-                query.value = ""
-                openMenu.value = true
-                slashAnchor = selection.anchor
-                const anchorElem = editor.getElementByKey(node.__key)!
-                const { right, height, top } = anchorElem.getBoundingClientRect()
-                menuAnchor.value = {
-                  getBoundingClientRect: () => DOMRect.fromRect({ x: right, y: top, height }),
-                }
-                return
-              }
+        openMenu.value = false
+        prevTextContentLength = textContent.length
+        return
+      }
+
+      const node = selection.anchor.getNode()
+      const text = node.__text
+      if (!node.isSimpleText() || selection.anchor.offset !== text.length) {
+        openMenu.value = false
+        prevTextContentLength = textContent.length
+        return
+      }
+
+      if (openMenu.value) {
+        const textAfter = getTextAfterLastNonAlnum(text)
+        if (textContent.length < prevTextContentLength || !textAfter) {
+          openMenu.value = false
+        } else {
+          query.value = textAfter
+        }
+      } else if (textContent.length >= prevTextContentLength) {
+        const parent = node.getParent()
+        if ($isElementBlock(parent)) {
+          const textAfter = getTextAfterLastNonAlnum(text)
+          if (textAfter) {
+            query.value = textAfter
+            openMenu.value = true
+            const anchorElem = editor.getElementByKey(node.__key)!
+            const { right, height, top } = anchorElem.getBoundingClientRect()
+            menuAnchor.value = {
+              getBoundingClientRect: () => DOMRect.fromRect({ x: right, y: top, height }),
             }
-          } else {
-            const [_, queryText] = node.getTextContent().trimEnd().split("/")
-            if (queryText) {
-              query.value = queryText
-              return
-            } // else: This usually happens when the user deletes the slash
           }
         }
       }
-      if (openMenu.value) {
-        openMenu.value = false
-      }
+      prevTextContentLength = textContent.length
     })
   }),
 )
@@ -81,12 +92,13 @@ const handleNoMatch = () => {
   openMenu.value = false
 }
 
-const handleAccept = (item: SlashMenuItem) => {
+const handleAccept = (item: AutocompleteItem) => {
   openMenu.value = false
   editor.update(() => {
     const selection = $getSelection()
-    if (!$isRangeSelection(selection) || !slashAnchor) return
-    selection.anchor.set(slashAnchor.key, slashAnchor.offset - 1, "text")
+    if (!$isRangeSelection(selection)) return
+    const anchor = selection.anchor
+    anchor.set(anchor.key, anchor.offset - query.value.length, "text")
     selection.removeText()
     item.action(editor, selection)
   })
@@ -102,7 +114,7 @@ const handleDismiss: vDismissableValue = {
   disableOutsidePointerEvents: true,
 }
 
-defineExpose<SlashMenuPluginApi>({
+defineExpose<AutocompletePluginApi>({
   registerItems(...item) {
     items.value.push(...item)
     const ids = new Set(item.map(it => it.id))
@@ -115,7 +127,7 @@ defineExpose<SlashMenuPluginApi>({
 
 <template>
   <Popper.Root>
-    <AutoComplete.Root v-model="_inputValue" :matcher="AutoComplete.subsequenceMatcher">
+    <AutoComplete.Root v-model="_inputValue" :matcher="AutoComplete.wordAnchoredSubsequenceMatcher">
       <Popper.Anchor :virtual-element="menuAnchor" />
       <template v-if="openMenu">
         <VirtualInput :query />
@@ -131,20 +143,20 @@ defineExpose<SlashMenuPluginApi>({
             v-scroll-lock="viewportElement"
           >
             <AutoComplete.Content
-              :class="['SlashMenu__content', css.content]"
+              :class="['Autocomplete__content', css.content]"
               @no-match="handleNoMatch"
             >
               <AutoComplete.Item
                 v-for="item of items"
-                :class="['SlashMenu__item', css.item]"
+                :class="['Autocomplete__item', css.item]"
                 :key="item.id"
                 :value="item.title"
                 @accept="handleAccept(item)"
               >
-                <span :class="['SlashMenu__item-icon', css.itemIcon]">
-                  <SlashMenuIcon :component="item.icon" />
+                <span :class="['Autocomplete__item-icon', css.itemIcon]">
+                  <AutocompleteIcon :component="item.icon" />
                 </span>
-                <span :class="['SlashMenu__item-title']">
+                <span :class="['Autocomplete__item-title']">
                   {{ item.title }}
                 </span>
               </AutoComplete.Item>
