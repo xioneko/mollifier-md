@@ -5,14 +5,14 @@ export const CheckboxClickableAreaWidth = 24
 <script setup lang="ts">
 import { useComposerContext } from "#components"
 import { usePluginsHostContext } from "#components/PluginsHost.vue"
-import SlashMenu, { SlashMenuPluginApi } from "#plugins/SlashMenu"
+import Autocomplete, { AutocompletePluginApi } from "#plugins/Autocomplete"
 import { getNodeKeyFromDOMNode, registerNodeElementMutationListener } from "#shared/node.ts"
 import { ListItemNode } from "./nodes"
 import { registerList } from "./registerList"
 import { mergeRegister } from "@lexical/utils"
 import { $getNodeByKey } from "lexical"
 import { onUnmounted } from "vue"
-import { slashMenuItems } from "./slashMenuItems"
+import { autocompleteItems } from "./autocompleteItems"
 import InputRule, { InputRulePluginApi } from "#plugins/InputRule"
 import { inputRules } from "./inputRules"
 
@@ -42,9 +42,9 @@ const handlePointeDown = (event: PointerEvent) => {
 onUnmounted(
   mergeRegister(
     registerList(editor),
-    registerPluginMountedHook<SlashMenuPluginApi>(SlashMenu.id, plugin => {
-      const unregister = plugin.registerItems(...slashMenuItems)
-      cleanupFns.set(SlashMenu.id, unregister)
+    registerPluginMountedHook<AutocompletePluginApi>(Autocomplete.id, plugin => {
+      const unregister = plugin.registerItems(...autocompleteItems)
+      cleanupFns.set(Autocomplete.id, unregister)
     }),
     registerPluginMountedHook<InputRulePluginApi>(InputRule.id, plugin => {
       const unregister = plugin.registerInputRules(...inputRules)

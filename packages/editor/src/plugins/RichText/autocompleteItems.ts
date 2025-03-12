@@ -1,4 +1,4 @@
-import type { SlashMenuItem } from "#plugins/SlashMenu"
+import type { AutocompleteItem } from "#plugins/Autocomplete"
 import { $getBlockElementNodeAtPoint } from "#shared/selection.ts"
 import { $createHeadingNode } from "./nodes/HeadingNode"
 import { $createHorizontalRuleNode } from "./nodes/HorizontalRuleNode"
@@ -11,7 +11,7 @@ import {
   type RangeSelection,
 } from "lexical"
 
-export const slashMenuItems: SlashMenuItem[] = [
+export const autocompleteItems: AutocompleteItem[] = [
   {
     id: "rich-text:p",
     title: "Paragraph",

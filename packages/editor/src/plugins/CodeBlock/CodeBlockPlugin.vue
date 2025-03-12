@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { usePluginsHostContext } from "#components/PluginsHost.vue"
+import Autocomplete, { AutocompletePluginApi } from "#plugins/Autocomplete"
 import InputRule, { InputRulePluginApi } from "#plugins/InputRule"
-import SlashMenu, { SlashMenuPluginApi } from "#plugins/SlashMenu"
 import { $getBlockElementNodeAtPoint } from "#shared/selection.ts"
 import { $createCodeBlockNode } from "./CodeBlockNode"
 import { mergeRegister } from "@lexical/utils"
@@ -14,7 +14,7 @@ const cleanupFns: (() => void)[] = []
 
 onUnmounted(
   mergeRegister(
-    registerPluginMountedHook<SlashMenuPluginApi>(SlashMenu.id, plugin => {
+    registerPluginMountedHook<AutocompletePluginApi>(Autocomplete.id, plugin => {
       const unregister = plugin.registerItems({
         id: "code-block",
         title: "Code block",

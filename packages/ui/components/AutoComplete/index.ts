@@ -13,6 +13,7 @@ export {
   weightedSubsequenceMatcher,
   subsequenceMatcher,
   prefixSubsequenceMatcher,
+  wordAnchoredSubsequenceMatcher,
 } from "./AutoCompleteMatcher"
 export { default as AutoCompleteInput, default as Input } from "./AutoCompleteInput.vue"
 export {

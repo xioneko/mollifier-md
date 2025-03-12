@@ -1,3 +1,4 @@
+import Autocomplete from "#plugins/Autocomplete"
 import CodeBlock from "#plugins/CodeBlock"
 import ContextMenu from "#plugins/ContextMenu"
 import DraggableBlock from "#plugins/DraggableBlock"
@@ -9,7 +10,6 @@ import InputRule from "#plugins/InputRule"
 import Link from "#plugins/Link"
 import List from "#plugins/List"
 import RichText from "#plugins/RichText"
-import SlashMenu from "#plugins/SlashMenu"
 import Table from "#plugins/Table"
 
 export * from "./components"
@@ -24,7 +24,7 @@ export const defaultPlugins = [
   CodeBlock,
   ImageBlock,
   ContextMenu,
-  SlashMenu,
+  Autocomplete,
   FloatingToolbar,
   DraggableBlock,
   History,

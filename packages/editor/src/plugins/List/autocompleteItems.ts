@@ -1,4 +1,4 @@
-import type { SlashMenuItem } from "#plugins/SlashMenu"
+import type { AutocompleteItem } from "#plugins/Autocomplete"
 import { $getBlockElementNodeAtPoint } from "#shared/selection.ts"
 import {
   $createListItemNode,
@@ -9,7 +9,7 @@ import {
 import { List } from "@mollifier-md/ui/icons"
 import { $isParagraphNode, type RangeSelection } from "lexical"
 
-export const slashMenuItems: SlashMenuItem[] = [
+export const autocompleteItems: AutocompleteItem[] = [
   {
     id: "list:bullet",
     title: "Bulleted List",

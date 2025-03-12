@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useComposerContext } from "#components"
 import { usePluginsHostContext } from "#components/PluginsHost.vue"
-import SlashMenu, { SlashMenuPluginApi } from "#plugins/SlashMenu"
+import Autocomplete, { AutocompletePluginApi } from "#plugins/Autocomplete"
 import { $getBlockElementNodeAtPoint, $tryInsertBlock } from "#shared/selection.ts"
 import { DROP_PASTE_FILE_COMMAND } from "../RichText/registerRichText"
 import { $createImageBlockNode } from "./ImageBlockNode"
@@ -16,7 +16,7 @@ const { registerPluginMountedHook } = usePluginsHostContext()
 let cleanup: (() => void) | undefined
 onUnmounted(
   mergeRegister(
-    registerPluginMountedHook<SlashMenuPluginApi>(SlashMenu.id, plugin => {
+    registerPluginMountedHook<AutocompletePluginApi>(Autocomplete.id, plugin => {
       cleanup = plugin.registerItems({
         id: "image",
         title: "Image",
