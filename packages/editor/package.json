@@ -32,6 +32,7 @@
     "@lexical/html": "catalog:",
     "@lexical/text": "catalog:",
     "@lexical/utils": "catalog:",
+    "@lexical/selection": "catalog:",
     "@uiw/codemirror-theme-vscode": "^4.23.7",
     "@vanilla-extract/css": "catalog:",
     "@mollifier-md/ui": "workspace:*",

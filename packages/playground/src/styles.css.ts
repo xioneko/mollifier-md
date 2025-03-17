@@ -100,6 +100,15 @@ export const editorViewport = style([
   },
 ])
 
+export const toolbar = style({
+  position: "sticky",
+  top: 0,
+  height: "40px",
+  zIndex: 1,
+  borderBottom: `1px solid ${vars.colors.slate6}`,
+  backgroundColor: vars.colors.gray1,
+})
+
 export const contentEditable = style({
   boxSizing: "content-box",
   position: "relative",
@@ -107,7 +116,7 @@ export const contentEditable = style({
   minWidth: "420px",
   minHeight: "360px",
   marginInline: "auto",
-  padding: "108px 72px",
+  padding: "32px 48px 108px",
   fontSize: vars.text.base,
 })
 

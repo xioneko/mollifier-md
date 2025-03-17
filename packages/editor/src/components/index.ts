@@ -1,6 +1,7 @@
 export { default as ContentEditable } from "./ContentEditable.vue"
 export { default as EditorViewport, getViewportElement } from "./EditorViewport.ts"
 export { default as EditorTreeView } from "./EditorTreeView.vue"
+export { default as EditorToolbar } from "./EditorToolbar.vue"
 export {
   default as EditorComposer,
   type EditorComposerProps,

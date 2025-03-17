@@ -7,22 +7,25 @@ settings:
 catalogs:
   default:
     '@lexical/clipboard':
-      specifier: latest
+      specifier: 0.23.1
       version: 0.23.1
     '@lexical/devtools-core':
-      specifier: latest
+      specifier: 0.23.1
       version: 0.23.1
     '@lexical/history':
-      specifier: latest
+      specifier: 0.23.1
       version: 0.23.1
     '@lexical/html':
-      specifier: latest
+      specifier: 0.23.1
+      version: 0.23.1
+    '@lexical/selection':
+      specifier: 0.23.1
       version: 0.23.1
     '@lexical/text':
-      specifier: latest
+      specifier: 0.23.1
       version: 0.23.1
     '@lexical/utils':
-      specifier: latest
+      specifier: 0.23.1
       version: 0.23.1
     '@vanilla-extract/css':
       specifier: ^1.17
@@ -34,7 +37,7 @@ catalogs:
       specifier: ^0.5.5
       version: 0.5.5
     lexical:
-      specifier: latest
+      specifier: 0.23.1
       version: 0.23.1
     vue:
       specifier: ^3.5
@@ -144,6 +147,9 @@ importers:
         specifier: 'catalog:'
         version: 0.23.1
       '@lexical/html':
+        specifier: 'catalog:'
+        version: 0.23.1
+      '@lexical/selection':
         specifier: 'catalog:'
         version: 0.23.1
       '@lexical/text':

@@ -17,6 +17,7 @@ import {
   defaultPlugins,
   EditorViewport,
   EditorTreeView,
+  EditorToolbar,
 } from "@mollifier-md/editor"
 import * as Menu from "@mollifier-md/ui/components/Menu"
 import { useTooltipSingleton } from "@mollifier-md/ui/components/Tooltip"
@@ -93,13 +94,14 @@ provide(AppContext, { showToast })
         :plugins="defaultPlugins"
         @error="showErrorOverlay($event)"
       >
+        <EditorToolbar :class="css.toolbar" />
         <!-- 编辑器根元素 -->
         <ContentEditable :class="css.contentEditable" spellcheck="false" />
         <!-- （可选）为了接收 ComposerContext，并暴露一些编辑器操作 -->
         <EditorActions ref="actionsKey" />
       </EditorComposer>
     </EditorViewport>
-    <div :class="css.buttonGroup">
+    <!-- <div :class="css.buttonGroup">
       <div :class="css.iconBtn" v-tooltip="`Toggle Theme`">
         <ThemeToggle style="width: 100%; height: 100%" />
       </div>
@@ -171,9 +173,6 @@ provide(AppContext, { showToast })
       >
         <Bug width="100%" height="100%" />
       </div>
-    </div>
+    </div> -->
   </main>
-  <div v-if="showTreeView && editor" :class="css.debugView">
-    <EditorTreeView :class="css.editorTreeView" :editor />
-  </div>
 </template>

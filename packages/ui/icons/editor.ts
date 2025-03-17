@@ -1,4 +1,9 @@
 import type { SVGComponent } from "./types"
+import LucideAlignCenter from "~icons/lucide/align-center"
+import LucideAlignJustify from "~icons/lucide/align-justify"
+import LucideAlignLeft from "~icons/lucide/align-left"
+import LucideAlignRight from "~icons/lucide/align-right"
+import LucideBaseline from "~icons/lucide/baseline"
 import LucideBold from "~icons/lucide/bold"
 import LucideCode from "~icons/lucide/code"
 import LucideCopy from "~icons/lucide/copy"
@@ -16,6 +21,10 @@ import LucideLink from "~icons/lucide/link"
 import LucideList from "~icons/lucide/list"
 import LucideListOrdered from "~icons/lucide/list-ordered"
 import LucideListTodo from "~icons/lucide/list-todo"
+import LucideMinus from "~icons/lucide/minus"
+import LucidePaintBucket from "~icons/lucide/paint-bucket"
+import LucidePlus from "~icons/lucide/plus"
+import LucideRedo2 from "~icons/lucide/redo-2"
 import LucideSquareCode from "~icons/lucide/square-code"
 import LucideStrikethrough from "~icons/lucide/strikethrough"
 import LucideSubscript from "~icons/lucide/subscript"
@@ -23,6 +32,7 @@ import LucideSuperscript from "~icons/lucide/superscript"
 import LucideTable from "~icons/lucide/table"
 import LucideType from "~icons/lucide/type"
 import LucideUnderline from "~icons/lucide/underline"
+import LucideUndo2 from "~icons/lucide/undo-2"
 import LucideUnlink from "~icons/lucide/unlink"
 import MaterialSymbolsDragIndicator from "~icons/material-symbols/drag-indicator"
 import MaterialSymbolsFormatParagraphRounded from "~icons/material-symbols/format-paragraph-rounded"
@@ -66,6 +76,8 @@ export const Format: Record<string, SVGComponent> = {
   Subscript: LucideSubscript,
   Superscript: LucideSuperscript,
   Code: LucideCode,
+  TextColor: LucideBaseline,
+  BackgroundColor: LucidePaintBucket,
 }
 
 export const Copy: SVGComponent = LucideCopy
@@ -83,3 +95,16 @@ export const DragIndicator: SVGComponent = MaterialSymbolsDragIndicator
 export const Sum: SVGComponent = TablerSum
 
 export const Math: SVGComponent = TablerMath
+
+export const Undo: SVGComponent = LucideUndo2
+export const Redo: SVGComponent = LucideRedo2
+
+export const Plus: SVGComponent = LucidePlus
+export const Minus: SVGComponent = LucideMinus
+
+export const Align: Record<string, SVGComponent> = {
+  Left: LucideAlignLeft,
+  Center: LucideAlignCenter,
+  Right: LucideAlignRight,
+  Justify: LucideAlignJustify,
+}
