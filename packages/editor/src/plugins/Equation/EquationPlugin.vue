@@ -21,7 +21,7 @@ onUnmounted(
       const unregister = plugin.registerItems(
         {
           id: "inline-equation",
-          title: "Inline equation",
+          title: "InlineEquation",
           icon: Math,
           action(editor, selection) {
             const node = $createInlineEquationNode()
@@ -39,7 +39,7 @@ onUnmounted(
         },
         {
           id: "block-equation",
-          title: "Block equation",
+          title: "BlockEquation",
           icon: Sum,
           action(editor, selection) {
             const node = $createEquationBlockNode()

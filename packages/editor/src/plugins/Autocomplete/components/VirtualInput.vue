@@ -7,10 +7,12 @@ import {
   injectCollection,
 } from "@mollifier-md/ui/components/AutoComplete"
 import {
+  COMMAND_PRIORITY_CRITICAL,
   COMMAND_PRIORITY_NORMAL,
   KEY_ARROW_DOWN_COMMAND,
   KEY_ARROW_UP_COMMAND,
   KEY_ENTER_COMMAND,
+  KEY_TAB_COMMAND,
 } from "lexical"
 import { inject, onUnmounted, watchEffect } from "vue"
 
@@ -32,6 +34,12 @@ function navigate(direction: "up" | "down") {
   selectedId.value = items[nextIndex].data.id
   const itemEl = items[nextIndex].el
   itemEl.scrollIntoView({ block: "nearest" })
+}
+
+function accept() {
+  const selectedItem = getItems().find(it => it.data.id === selectedId.value)!
+  selectedItem.data.accept()
+  input.value = ""
 }
 
 onUnmounted(
@@ -57,13 +65,20 @@ onUnmounted(
     editor.registerCommand(
       KEY_ENTER_COMMAND,
       event => {
-        const selectedItem = getItems().find(it => it.data.id === selectedId.value)!
-        selectedItem.data.accept()
-        input.value = ""
+        accept()
         event?.preventDefault()
         return true
       },
-      COMMAND_PRIORITY_NORMAL,
+      COMMAND_PRIORITY_CRITICAL,
+    ),
+    editor.registerCommand(
+      KEY_TAB_COMMAND,
+      event => {
+        accept()
+        event.preventDefault()
+        return true
+      },
+      COMMAND_PRIORITY_CRITICAL,
     ),
   ),
 )

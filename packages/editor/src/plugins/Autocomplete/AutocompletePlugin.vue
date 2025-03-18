@@ -7,6 +7,23 @@ function getTextAfterLastNonAlnum(str: string) {
   let match = str.match(/[^a-zA-Z0-9]([a-zA-Z0-9]*)$/)
   return match ? match[1] : str
 }
+
+const matcher: AutoComplete.AutoCompleteMatcher<string> = (value, query) => {
+  if (query === "") return true
+  if (value.length < query.length) return false
+  let i = 0,
+    j = 0
+  while (j < value.length) {
+    if (query[i] === value[j] && (i > 0 || j === 0 || value[j].toUpperCase() === value[j])) {
+      i += 1
+      if (i === query.length) {
+        if (i === query.length) return 1 / value.length
+      }
+    }
+    j += 1
+  }
+  return false
+}
 </script>
 
 <script setup lang="ts">
@@ -127,7 +144,7 @@ defineExpose<AutocompletePluginApi>({
 
 <template>
   <Popper.Root>
-    <AutoComplete.Root v-model="_inputValue" :matcher="AutoComplete.wordAnchoredSubsequenceMatcher">
+    <AutoComplete.Root v-model="_inputValue" :matcher="matcher">
       <Popper.Anchor :virtual-element="menuAnchor" />
       <template v-if="openMenu">
         <VirtualInput :query />

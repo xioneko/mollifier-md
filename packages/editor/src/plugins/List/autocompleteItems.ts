@@ -12,7 +12,7 @@ import { $isParagraphNode, type RangeSelection } from "lexical"
 export const autocompleteItems: AutocompleteItem[] = [
   {
     id: "list:bullet",
-    title: "Bulleted List",
+    title: "BulletedList",
     icon: List.Bullet,
     action(editor, selection) {
       editor.update(() => {
@@ -22,7 +22,7 @@ export const autocompleteItems: AutocompleteItem[] = [
   },
   {
     id: "list:number",
-    title: "Numbered List",
+    title: "NumberedList",
     icon: List.Number,
     action(editor, selection) {
       editor.update(() => {
@@ -32,7 +32,7 @@ export const autocompleteItems: AutocompleteItem[] = [
   },
   {
     id: "list:check",
-    title: "Todo List",
+    title: "TodoList",
     icon: List.Todo,
     action(editor, selection) {
       editor.update(() => {

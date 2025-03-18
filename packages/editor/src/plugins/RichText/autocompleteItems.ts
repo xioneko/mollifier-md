@@ -24,7 +24,7 @@ export const autocompleteItems: AutocompleteItem[] = [
   },
   {
     id: "rich-text:h1",
-    title: "Heading 1",
+    title: "Heading1",
     icon: Heading.H1,
     action(editor, selection) {
       editor.update(() => {
@@ -34,7 +34,7 @@ export const autocompleteItems: AutocompleteItem[] = [
   },
   {
     id: "rich-text:h2",
-    title: "Heading 2",
+    title: "Heading2",
     icon: Heading.H2,
     action(editor, selection) {
       editor.update(() => {
@@ -44,7 +44,7 @@ export const autocompleteItems: AutocompleteItem[] = [
   },
   {
     id: "rich-text:h3",
-    title: "Heading 3",
+    title: "Heading3",
     icon: Heading.H3,
     action(editor, selection) {
       editor.update(() => {

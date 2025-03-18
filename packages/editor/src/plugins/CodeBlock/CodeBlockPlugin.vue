@@ -17,7 +17,7 @@ onUnmounted(
     registerPluginMountedHook<AutocompletePluginApi>(Autocomplete.id, plugin => {
       const unregister = plugin.registerItems({
         id: "code-block",
-        title: "Code block",
+        title: "CodeBlock",
         icon: CodeBlock,
         action(editor, selection) {
           editor.update(() => {
