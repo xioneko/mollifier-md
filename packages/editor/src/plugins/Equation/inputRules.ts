@@ -1,6 +1,5 @@
 import type { InputRule } from "#plugins/InputRule"
 import { $createEquationBlockNode, $createInlineEquationNode } from "./nodes"
-import { $isParagraphNode } from "lexical"
 
 export const inputRules: InputRule[] = [
   {
@@ -30,7 +29,7 @@ export const inputRules: InputRule[] = [
     transform(node, offset, editor) {
       if (offset !== 2 || !node.__text.startsWith("$$")) return false
       const block = node.getParent()
-      if (!$isParagraphNode(block) || block.__first !== node.__key) return false
+      if (!block || block.__first !== node.__key) return false
       const equation = block.getTextContent().slice(2)
       editor.update(() => {
         const equationBlock = $createEquationBlockNode(equation)

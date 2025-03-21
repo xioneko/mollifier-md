@@ -1,8 +1,10 @@
 import type { NodeMarkdownSerializer } from "#core/markdown"
-import { type SerializedElementBlockNode, ElementBlockNode } from "#core/nodes"
-import { $transformToInlines } from "#shared/node.ts"
+import { type SerializedElementBlockNode } from "#core/nodes"
+import { __assert__ } from "#shared/dev.ts"
+import { $warpContinuosInlineNodes } from "#shared/node.ts"
 import {
   $createParagraphNode,
+  ElementNode,
   type DOMConversionMap,
   type DOMExportOutput,
   type EditorConfig,
@@ -17,7 +19,7 @@ import type { Simplify } from "type-fest"
 
 export type SerializedQuoteNode = Simplify<SerializedElementBlockNode>
 
-export class QuoteNode extends ElementBlockNode {
+export class QuoteNode extends ElementNode {
   static override getType(): string {
     return "quote"
   }
@@ -37,7 +39,7 @@ export class QuoteNode extends ElementBlockNode {
   /* ---------------------------------- View ---------------------------------- */
 
   override createDOM(config: EditorConfig, editor: LexicalEditor): HTMLElement {
-    const element = super.createDOM(config, editor, "blockquote")
+    const element = document.createElement("blockquote")
     if (config.theme.quote) {
       element.className = config.theme.quote
     }
@@ -45,7 +47,7 @@ export class QuoteNode extends ElementBlockNode {
   }
 
   override updateDOM(_prevNode: this, _dom: HTMLElement, _config: EditorConfig): boolean {
-    return super.updateDOM(_prevNode, _dom, _config)
+    return false
   }
 
   /* ------------------------------ Serialization ----------------------------- */
@@ -90,7 +92,7 @@ export class QuoteNode extends ElementBlockNode {
   /* -------------------------------- Mutation -------------------------------- */
 
   override append(...nodes: LexicalNode[]): this {
-    return super.append(...$transformToInlines(nodes))
+    return super.append(...$warpContinuosInlineNodes(nodes, $createParagraphNode))
   }
 
   override insertNewAfter(_selection: RangeSelection, restoreSelection?: boolean): ParagraphNode {
@@ -105,6 +107,15 @@ export class QuoteNode extends ElementBlockNode {
     paragraph.append(...children)
     this.replace(paragraph)
     return true
+  }
+
+  static override transform(): (node: LexicalNode) => void {
+    return node => {
+      __assert__($isQuoteNode(node))
+      if (node.isEmpty()) {
+        node.remove()
+      }
+    }
   }
 }
 

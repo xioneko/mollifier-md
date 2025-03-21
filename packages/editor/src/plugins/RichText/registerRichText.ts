@@ -1,9 +1,15 @@
 import { ClipboardDataFormat, UpdateTags } from "#core/constants.ts"
 import { $importFromDOM } from "#core/importDOM.ts"
-import { $isElementBlock, $isElementWithinDecorator } from "#core/nodes"
+import {
+  $createBlockSelection,
+  $isElementBlock,
+  $isElementWithinDecorator,
+  SELECT_BLOCK_COMMAND,
+} from "#core/nodes"
 import { __warn__ } from "#shared/dev.ts"
 import { caretFromPoint } from "#shared/dom.ts"
 import { $getBlockIfAtBlockStart } from "#shared/selection.ts"
+import { $isQuoteNode } from "./nodes/QuoteNode"
 import {
   $generateNodesFromSerializedNodes,
   $insertGeneratedNodes,
@@ -27,6 +33,7 @@ import {
   $normalizeSelection__EXPERIMENTAL,
   $setSelection,
   COMMAND_PRIORITY_EDITOR,
+  COMMAND_PRIORITY_LOW,
   CONTROLLED_TEXT_INSERTION_COMMAND,
   COPY_COMMAND,
   createCommand,
@@ -376,12 +383,43 @@ export function registerRichText(editor: LexicalEditor) {
               node.collapseAtStart(selection)
               event.preventDefault()
               return true
+            } else {
+              const parent = node.getParent()
+              if ($isQuoteNode(parent)) {
+                if (parent.__first === node.__key) {
+                  parent.insertBefore(node)
+                  event.preventDefault()
+                  return true
+                } else if (parent.__last === node.__key && node.isEmpty()) {
+                  parent.insertAfter(node)
+                  event.preventDefault()
+                  return true
+                }
+              }
             }
           }
         }
         return false
       },
       COMMAND_PRIORITY_EDITOR,
+    ),
+    /* -------------------------------- Selection ------------------------------- */
+    editor.registerCommand(
+      SELECT_BLOCK_COMMAND,
+      ({ node, selection }) => {
+        if ($isQuoteNode(node)) {
+          let blockSelection = selection || $createBlockSelection()
+          node.getChildren<ElementNode>().forEach(child => {
+            editor.dispatchCommand(SELECT_BLOCK_COMMAND, { node: child, selection: blockSelection })
+          })
+          if (!selection) {
+            $setSelection(blockSelection)
+          }
+          return true
+        }
+        return false
+      },
+      COMMAND_PRIORITY_LOW,
     ),
   )
 }

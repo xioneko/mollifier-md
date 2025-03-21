@@ -101,7 +101,7 @@ provide(AppContext, { showToast })
         <EditorActions ref="actionsKey" />
       </EditorComposer>
     </EditorViewport>
-    <!-- <div :class="css.buttonGroup">
+    <div :class="css.buttonGroup">
       <div :class="css.iconBtn" v-tooltip="`Toggle Theme`">
         <ThemeToggle style="width: 100%; height: 100%" />
       </div>
@@ -173,6 +173,6 @@ provide(AppContext, { showToast })
       >
         <Bug width="100%" height="100%" />
       </div>
-    </div> -->
+    </div>
   </main>
 </template>

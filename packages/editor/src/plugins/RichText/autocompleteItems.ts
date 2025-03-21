@@ -58,7 +58,10 @@ export const autocompleteItems: AutocompleteItem[] = [
     icon: Quote,
     action(editor, selection) {
       editor.update(() => {
-        $insertAfterBlock($createQuoteNode(), selection)
+        const quote = $createQuoteNode()
+        $insertAfterBlock(quote, selection)
+        quote.append($createParagraphNode())
+        quote.selectStart()
       })
     },
   },
