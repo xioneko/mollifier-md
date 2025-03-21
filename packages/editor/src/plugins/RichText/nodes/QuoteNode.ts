@@ -36,6 +36,18 @@ export class QuoteNode extends ElementNode {
     return false
   }
 
+  override canBeEmpty(): boolean {
+    return false
+  }
+
+  override canInsertTextAfter(): boolean {
+    return false
+  }
+
+  override canInsertTextBefore(): boolean {
+    return false
+  }
+
   /* ---------------------------------- View ---------------------------------- */
 
   override createDOM(config: EditorConfig, editor: LexicalEditor): HTMLElement {
