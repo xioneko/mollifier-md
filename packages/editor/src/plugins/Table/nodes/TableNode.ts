@@ -50,11 +50,7 @@ export class TableNode extends ElementBlockNode {
     this.__cachedTableMap = prevNode.__cachedTableMap
   }
 
-  constructor(
-    columnWidth: (number | undefined)[] = [],
-    scrollable: boolean = false,
-    key?: NodeKey,
-  ) {
+  constructor(columnWidth: (number | undefined)[] = [], scrollable: boolean = true, key?: NodeKey) {
     super(key)
     this.__columnWidths = columnWidth
     this.__scrollable = scrollable
