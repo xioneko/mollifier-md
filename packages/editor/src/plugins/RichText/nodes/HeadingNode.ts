@@ -77,6 +77,7 @@ export class HeadingNode extends ElementBlockNode {
   }
 
   override updateDOM(prevNode: this, dom: HTMLElement, config: EditorConfig): boolean {
+    super.updateDOM(prevNode, dom, config)
     if (prevNode.__tag !== this.__tag) {
       return true
     }
