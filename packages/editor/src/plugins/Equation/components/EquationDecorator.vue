@@ -15,6 +15,7 @@ import "katex/dist/katex.css"
 import katex from "katex"
 import { onMounted, ref, useTemplateRef, watch } from "vue"
 import * as Popper from "@mollifier-md/ui/components/Popper"
+import { Tex } from "@mollifier-md/ui/icons"
 import {
   vDismissable,
   type vDismissableValue,
@@ -118,6 +119,10 @@ defineExpose<MathNodeDecoratorExpose>({
 
 <template>
   <Popper.Root>
+    <div v-if="!inline && !renderedEquation" :class="css.placeholder">
+      <Tex width="30px" height="30px" />
+      <span>Add a TeX equation</span>
+    </div>
     <Popper.Anchor as-child>
       <span
         :class="css.equation"
@@ -127,7 +132,8 @@ defineExpose<MathNodeDecoratorExpose>({
           pointerEvents: showEditor ? 'none' : undefined,
         }"
         @click="handleClick"
-      ></span>
+      >
+      </span>
     </Popper.Anchor>
     <Teleport to="body">
       <Popper.Transition @enter="Popper.fadeIn" @leave="Popper.fadeOut">

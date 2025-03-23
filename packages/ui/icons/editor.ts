@@ -1,4 +1,5 @@
 import type { SVGComponent } from "./types"
+import FileIconsLatex from "~icons/file-icons/latex"
 import LucideAlignCenter from "~icons/lucide/align-center"
 import LucideAlignJustify from "~icons/lucide/align-justify"
 import LucideAlignLeft from "~icons/lucide/align-left"
@@ -95,6 +96,8 @@ export const DragIndicator: SVGComponent = MaterialSymbolsDragIndicator
 export const Sum: SVGComponent = TablerSum
 
 export const Math: SVGComponent = TablerMath
+
+export const Tex: SVGComponent = FileIconsLatex
 
 export const Undo: SVGComponent = LucideUndo2
 export const Redo: SVGComponent = LucideRedo2

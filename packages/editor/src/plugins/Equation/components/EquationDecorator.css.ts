@@ -36,3 +36,19 @@ export const editorInput = style({
     },
   },
 })
+
+export const placeholder = style({
+  display: "flex",
+  alignItems: "center",
+  gap: "8px",
+  position: "absolute",
+  top: 0,
+  bottom: 0,
+  left: 10,
+  height: "fit-content",
+  marginBlock: "auto",
+  WebkitUserSelect: "none",
+  userSelect: "none",
+  pointerEvents: "none",
+  color: vars.colors.grayA9,
+})
