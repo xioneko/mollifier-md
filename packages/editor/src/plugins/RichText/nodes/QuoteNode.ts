@@ -170,8 +170,10 @@ function $updateQuoteColor(node: QuoteNode, dom: HTMLElement) {
   if (color) {
     dom.style.borderColor = color
     dom.style.backgroundColor = color + "18"
+    dom.setAttribute("data-color", color)
   } else {
     dom.style.borderColor = ""
     dom.style.backgroundColor = ""
+    dom.removeAttribute("data-color")
   }
 }

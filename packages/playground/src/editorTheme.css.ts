@@ -157,6 +157,11 @@ export const quote = style({
   borderLeft: `4px solid ${vars.colors.gray6}`,
   paddingLeft: "1rem",
   color: vars.colors.gray11,
+  selectors: {
+    "&[data-color]": {
+      color: "unset",
+    },
+  },
 })
 
 export const heading = {
