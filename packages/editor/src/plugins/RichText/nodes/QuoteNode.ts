@@ -14,22 +14,44 @@ import {
   type NodeKey,
   type ParagraphNode,
   type RangeSelection,
+  type Spread,
 } from "lexical"
 import type { Simplify } from "type-fest"
 
-export type SerializedQuoteNode = Simplify<SerializedElementBlockNode>
+export type ColorValueHex = `#${string}`
+
+export type SerializedQuoteNode = Simplify<
+  Spread<
+    {
+      color?: ColorValueHex
+    },
+    SerializedElementBlockNode
+  >
+>
 
 export class QuoteNode extends ElementNode {
+  __color?: ColorValueHex
+
   static override getType(): string {
     return "quote"
   }
 
   static override clone(node: QuoteNode): QuoteNode {
-    return new QuoteNode(node.__key)
+    return new QuoteNode(node.__color, node.__key)
   }
 
-  constructor(key?: NodeKey) {
+  constructor(color?: ColorValueHex, key?: NodeKey) {
     super(key)
+    this.__color = color
+  }
+
+  getColor(): ColorValueHex | undefined {
+    return this.getLatest().__color
+  }
+
+  setColor(color: ColorValueHex | undefined): this {
+    this.getWritable().__color = color
+    return this
   }
 
   override canIndent(): boolean {
@@ -55,10 +77,14 @@ export class QuoteNode extends ElementNode {
     if (config.theme.quote) {
       element.className = config.theme.quote
     }
+    $updateQuoteColor(this, element)
     return element
   }
 
-  override updateDOM(_prevNode: this, _dom: HTMLElement, _config: EditorConfig): boolean {
+  override updateDOM(prevNode: this, dom: HTMLElement, _config: EditorConfig): boolean {
+    if (prevNode.__color !== this.__color) {
+      $updateQuoteColor(this, dom)
+    }
     return false
   }
 
@@ -137,4 +163,15 @@ export function $createQuoteNode(): QuoteNode {
 
 export function $isQuoteNode(node: LexicalNode | null | undefined): node is QuoteNode {
   return node instanceof QuoteNode
+}
+
+function $updateQuoteColor(node: QuoteNode, dom: HTMLElement) {
+  const color = node.__color
+  if (color) {
+    dom.style.borderColor = color
+    dom.style.backgroundColor = color + "18"
+  } else {
+    dom.style.borderColor = ""
+    dom.style.backgroundColor = ""
+  }
 }

@@ -161,6 +161,9 @@ importers:
       '@mdit/plugin-tex':
         specifier: ^0.16.0
         version: 0.16.0(markdown-it@14.1.0)
+      '@melloware/coloris':
+        specifier: ^0.24.0
+        version: 0.24.0
       '@mollifier-md/ui':
         specifier: workspace:*
         version: link:../ui
@@ -1124,6 +1127,9 @@ packages:
     peerDependencies:
       '@types/react': '>=16'
       react: '>=16'
+
+  '@melloware/coloris@0.24.0':
+    resolution: {integrity: sha512-9RGKHqZJsUSsxb/0xaBCK5OKywobiK/xRtV8f4KQDmviqmVfkMLR3kK4DRuTTLSFdSOqkV0OQ/Niitu+rlXXYw==}
 
   '@oxlint/darwin-arm64@0.14.1':
     resolution: {integrity: sha512-P76G8QCHOkLm+8HYk2/5uR4sPnx6uxE5Y8ik8dgCV0XjrNR+/Sg8v2aQ1BmWeEnPGkBXTt1VSECO9BdT1HVeDw==}
@@ -4194,6 +4200,8 @@ snapshots:
       '@types/mdx': 2.0.13
       '@types/react': 18.3.12
       react: 18.3.1
+
+  '@melloware/coloris@0.24.0': {}
 
   '@oxlint/darwin-arm64@0.14.1':
     optional: true

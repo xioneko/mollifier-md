@@ -45,7 +45,12 @@ export class HeadingNode extends ElementBlockNode {
   }
 
   getTag(): HeadingTagType {
-    return this.__tag
+    return this.getLatest().__tag
+  }
+
+  setTag(tag: HeadingTagType): this {
+    this.getWritable().__tag = tag
+    return this
   }
 
   override canIndent(): boolean {
@@ -72,7 +77,10 @@ export class HeadingNode extends ElementBlockNode {
   }
 
   override updateDOM(prevNode: this, dom: HTMLElement, config: EditorConfig): boolean {
-    return super.updateDOM(prevNode, dom, config)
+    if (prevNode.__tag !== this.__tag) {
+      return true
+    }
+    return false
   }
 
   /* ------------------------------ Serialization ----------------------------- */
