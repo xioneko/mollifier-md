@@ -120,8 +120,12 @@ onUnmounted(
                         top: `${event.clientY}px`,
                         left: `${event.clientX}px`,
                       })
-                      let currentColor = editor.read(() => quote.getColor())
-                      input.value = currentColor || ""
+                      let currentColor: string | undefined = editor.read(() => quote.getColor())
+                      if (!currentColor) {
+                        const quoteElem = editor.getElementByKey(quote.getKey())!
+                        currentColor = window.getComputedStyle(quoteElem).borderLeftColor || ""
+                      }
+                      input.value = currentColor
                       input.click()
                     }
                   },

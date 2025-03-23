@@ -6,11 +6,9 @@ import {
   $isElementWithinDecorator,
   SELECT_BLOCK_COMMAND,
 } from "#core/nodes"
-import { OPEN_CONTEXT_MENU_COMMAND } from "#plugins/ContextMenu"
 import { __warn__ } from "#shared/dev.ts"
 import { caretFromPoint } from "#shared/dom.ts"
 import { $getBlockIfAtBlockStart } from "#shared/selection.ts"
-import { $isHeadingNode, type HeadingTagType } from "./nodes/HeadingNode"
 import { $isQuoteNode } from "./nodes/QuoteNode"
 import {
   $generateNodesFromSerializedNodes,
