@@ -2,7 +2,6 @@ import { vars } from "@mollifier-md/ui/theme"
 import { style } from "@vanilla-extract/css"
 
 export const equation = style({
-  userSelect: "none",
   cursor: "pointer",
   selectors: {
     '&[data-display-mode="true"]': {
