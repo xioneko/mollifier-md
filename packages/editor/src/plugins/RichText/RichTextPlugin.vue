@@ -145,13 +145,15 @@ onUnmounted(
 </script>
 
 <template>
-  <input
-    type="text"
-    id="coloris"
-    :style="{
-      position: 'fixed',
-      visibility: 'hidden',
-    }"
-    ref="colorInputKey"
-  />
+  <Teleport to="body">
+    <input
+      type="text"
+      id="coloris"
+      :style="{
+        position: 'fixed',
+        visibility: 'hidden',
+      }"
+      ref="colorInputKey"
+    />
+  </Teleport>
 </template>
