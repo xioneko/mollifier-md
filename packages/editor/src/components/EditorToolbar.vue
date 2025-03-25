@@ -49,6 +49,7 @@ import {
   Minus,
   Plus,
   Redo,
+  Save,
   Undo,
 } from "@mollifier-md/ui/icons"
 import { $getSelection } from "lexical"
@@ -116,6 +117,9 @@ onUnmounted(
       <div :class="css.arrowDown">
         <Chevron.Down width="14px" height="14px" />
       </div>
+    </div>
+    <div :class="css.button">
+      <Save width="16px" height="16px" />
     </div>
     <div :class="css.separator"></div>
     <div :class="css.fontSize">

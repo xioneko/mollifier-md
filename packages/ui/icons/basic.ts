@@ -8,6 +8,7 @@ import LucideChevronDown from "~icons/lucide/chevron-down"
 import LucideChevronLeft from "~icons/lucide/chevron-left"
 import LucideChevronRight from "~icons/lucide/chevron-right"
 import LucideChevronUp from "~icons/lucide/chevron-up"
+import LucideSave from "~icons/lucide/save"
 
 export const Chevron: Record<string, SVGComponent> = {
   Down: LucideChevronDown,
@@ -25,3 +26,5 @@ export const Share: SVGComponent = BxShareAlt
 export const Trash: SVGComponent = BxTrash
 
 export const Bug: SVGComponent = BxBug
+
+export const Save: SVGComponent = LucideSave
